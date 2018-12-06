@@ -2,6 +2,9 @@ import requests
 import time
 from pyquery import PyQuery as pq
 import json
+from multiprocessing.pool import Pool
+
+
 
 def get_item(url):
     headers={
@@ -45,10 +48,14 @@ def main(nums):
 
 
 
-
-
-
-    
-if __name__=='__main__':
-    for i in range(40):
-        main(i)
+GROUP_START=1
+GROUP_END=40
+if  __name__=='__main__':
+    pool=Pool()
+    nums=([i for i in range(GROUP_START,GROUP_END)])
+    pool.map(main,nums)
+    pool.close()
+    pool.join()
+#if __name__=='__main__':
+#    for i in range(40):
+#        main(i)
